@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enero – Libro de Mormón</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+    <div class="month-nav">
+    <button id="prevMonth" class="pill" type="button" aria-label="Previous month">←</button>
+
+    <div class="tape tape-blue" id="monthName">Enero</div>
+
+    <button id="nextMonth" class="pill" type="button" aria-label="Next month">→</button>
+  </div>
+
+  <div class="tape tape-yellow">Libro de Mormón</div>
+  <p class="sub">Toca un día para marcarlo como completado ✨</p>
+</header>
+
+<section class="stats">
+  <div class="pill"><span id="doneCount">0</span>/<span id="totalDays">31</span> completados</div>
+  <button id="resetBtn" class="pill pill-outline" type="button">Reiniciar mes</button>
+
+</section>
+
+
+
+    <section id="days" class="days" aria-label="Reading days"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

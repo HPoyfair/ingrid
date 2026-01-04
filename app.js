@@ -1,0 +1,104 @@
+// app.js
+
+const BASE_KEY = "bom-reading-v2";
+
+const daysEl = document.getElementById("days");
+const doneCountEl = document.getElementById("doneCount");
+const totalDaysEl = document.getElementById("totalDays");
+const resetBtn = document.getElementById("resetBtn");
+
+const monthNameEl = document.getElementById("monthName");
+const prevBtn = document.getElementById("prevMonth");
+const nextBtn = document.getElementById("nextMonth");
+
+// Month shown on screen (start at current month)
+let viewDate = new Date(); // today
+
+function daysInMonth(year, monthIndex0based) {
+  // day 0 of next month = last day of current month
+  return new Date(year, monthIndex0based + 1, 0).getDate();
+}
+
+function monthLabel(date) {
+  // Spanish month name + year, like "Enero 2026"
+  return new Intl.DateTimeFormat("es", { month: "long", year: "numeric" })
+    .format(date)
+    .replace(/^./, (c) => c.toUpperCase()); // capitalize first letter
+}
+
+function monthKey(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  return `${BASE_KEY}:${y}-${m}`;
+}
+
+// --- storage helpers (per month) ---
+function loadProgressForMonth(date) {
+  const key = monthKey(date);
+  try {
+    return JSON.parse(localStorage.getItem(key)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveProgressForMonth(date, progress) {
+  localStorage.setItem(monthKey(date), JSON.stringify(progress));
+}
+
+// --- render UI ---
+function render() {
+  const year = viewDate.getFullYear();
+  const month = viewDate.getMonth(); // 0-11
+  const totalDays = daysInMonth(year, month);
+
+  monthNameEl.textContent = monthLabel(viewDate);
+  totalDaysEl.textContent = totalDays;
+
+  const progress = loadProgressForMonth(viewDate);
+
+  daysEl.innerHTML = "";
+  let doneCount = 0;
+
+  for (let day = 1; day <= totalDays; day++) {
+    const key = String(day);
+    const isDone = Boolean(progress[key]);
+    if (isDone) doneCount++;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "day" + (isDone ? " done" : "");
+    btn.textContent = day;
+
+    btn.addEventListener("click", () => {
+      const latest = loadProgressForMonth(viewDate);
+      latest[key] = !latest[key];
+      saveProgressForMonth(viewDate, latest);
+      render();
+    });
+
+    daysEl.appendChild(btn);
+  }
+
+  doneCountEl.textContent = doneCount;
+}
+
+// --- month navigation ---
+prevBtn.addEventListener("click", () => {
+  viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1);
+  render();
+});
+
+nextBtn.addEventListener("click", () => {
+  viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1);
+  render();
+});
+
+// --- reset only this month ---
+resetBtn.addEventListener("click", () => {
+  localStorage.removeItem(monthKey(viewDate));
+  render();
+});
+
+// first render
+render();
