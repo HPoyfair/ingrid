@@ -9,25 +9,32 @@
 <body>
   <main class="page">
     <header class="header">
-    <div class="month-nav">
-    <button id="prevMonth" class="pill" type="button" aria-label="Previous month">←</button>
+      <div class="month-nav">
+        <button id="prevMonth" class="pill" type="button" aria-label="Previous month">←</button>
 
-    <div class="tape tape-blue" id="monthName">Enero</div>
+        <div class="tape tape-blue" id="monthName">Enero</div>
 
-    <button id="nextMonth" class="pill" type="button" aria-label="Next month">→</button>
-  </div>
+        <button id="nextMonth" class="pill" type="button" aria-label="Next month">→</button>
+      </div>
 
-  <div class="tape tape-yellow">Libro de Mormón</div>
-  <p class="sub">Toca un día para marcarlo como completado ✨</p>
-</header>
+      <div class="tape tape-yellow">Libro de Mormón</div>
+      <p class="sub">Toca un día para marcarlo como completado ✨</p>
+    </header>
 
-<section class="stats">
-  <div class="pill"><span id="doneCount">0</span>/<span id="totalDays">31</span> completados</div>
-  <button id="resetBtn" class="pill pill-outline" type="button">Reiniciar mes</button>
+    <section class="stats">
+      <div class="pill">
+        <span id="doneCount">0</span>/<span id="totalDays">31</span> completados
+      </div>
 
-</section>
+      <!-- Year badge (Option C) -->
+      <div class="pill yearbadge" aria-label="Year progress">
+        <div class="yb-top">🏆 <span id="yearDone">0</span> días</div>
+        <div class="yb-bot">✨ <span id="yearPct">0</span>% del año</div>
 
-
+        <!-- keep this hidden value for calculations if you want it later -->
+        <span id="yearTotal" style="display:none;">365</span>
+      </div>
+    </section>
 
     <section id="days" class="days" aria-label="Reading days"></section>
   </main>

@@ -5,7 +5,12 @@ const BASE_KEY = "bom-reading-v2";
 const daysEl = document.getElementById("days");
 const doneCountEl = document.getElementById("doneCount");
 const totalDaysEl = document.getElementById("totalDays");
-const resetBtn = document.getElementById("resetBtn");
+
+const yearDoneEl = document.getElementById("yearDone");
+const yearTotalEl = document.getElementById("yearTotal");
+const yearPctEl = document.getElementById("yearPct");
+
+
 
 const monthNameEl = document.getElementById("monthName");
 const prevBtn = document.getElementById("prevMonth");
@@ -46,11 +51,44 @@ function saveProgressForMonth(date, progress) {
   localStorage.setItem(monthKey(date), JSON.stringify(progress));
 }
 
+
+function isLeapYear(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+}
+
+function countYearProgress(year) {
+  let totalDone = 0;
+
+  for (let m = 0; m < 12; m++) {
+    const d = new Date(year, m, 1);
+    const monthData = loadProgressForMonth(d);
+    totalDone += Object.values(monthData).filter(Boolean).length;
+  }
+
+  const totalDaysYear = isLeapYear(year) ? 366 : 365;
+  const pct = totalDaysYear ? Math.round((totalDone / totalDaysYear) * 100) : 0;
+
+  return { totalDone, totalDaysYear, pct };
+}
+
+
+
+
+
 // --- render UI ---
 function render() {
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth(); // 0-11
   const totalDays = daysInMonth(year, month);
+
+
+      // Year progress pill
+  const yearStats = countYearProgress(year);
+  yearDoneEl.textContent = yearStats.totalDone;
+  yearTotalEl.textContent = yearStats.totalDaysYear;
+  yearPctEl.textContent = yearStats.pct;
+
+
 
   monthNameEl.textContent = monthLabel(viewDate);
   totalDaysEl.textContent = totalDays;
@@ -102,3 +140,6 @@ resetBtn.addEventListener("click", () => {
 
 // first render
 render();
+
+
+

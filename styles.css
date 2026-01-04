@@ -60,10 +60,9 @@ body{
 }
 
 .pill-outline{
-  background: transparent;
-  border: 2px solid #ff9aa255; /* soft pink/red */
-  color: #444;
+  cursor: default;
 }
+
 
 .pill-outline:hover{
   background: #fff5f7;
@@ -152,3 +151,20 @@ body{
   margin-bottom: 6px;
 }
 
+.yearbadge{
+  cursor: default;
+  padding: 10px 16px;
+  text-align: left;
+  min-width: 140px;
+}
+
+.yb-top{
+  font-weight: 900;
+}
+
+.yb-bot{
+  font-size: 12px;
+  opacity: .75;
+  font-weight: 700;
+  margin-top: 2px;
+}
