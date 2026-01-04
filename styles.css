@@ -191,7 +191,7 @@ body{
   gap: 10px;
 
   /* soft gradient using your palette */
-  background: linear-gradient(135deg, #ffffff, #fff4c9);
+  background: #ffffffcc;
   box-shadow:
     0 10px 22px #00000012,
     inset 0 1px 0 #ffffffaa;
