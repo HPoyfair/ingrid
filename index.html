@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enero – Libro de Mormón</title>
+  <title>Lectura – Escrituras</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -17,8 +17,19 @@
         <button id="nextMonth" class="pill" type="button" aria-label="Next month">→</button>
       </div>
 
-      <div class="tape tape-yellow">Libro de Mormón</div>
-      <p class="sub">Toca un día para marcarlo como completado ✨</p>
+      <!-- dynamic book name -->
+      <div class="tape tape-yellow" id="bookName">Libro de Mormón</div>
+
+      <!-- replaces the old “Toca un día…” text -->
+      <div class="book-actions">
+        <button id="switchBook" class="switch-book" type="button">
+        <span class="sb-icon" aria-hidden="true">📚</span>
+        <span class="sb-text">Cambiar de libro</span>
+        <span class="sb-arrow" aria-hidden="true">➜</span>
+       </button>
+
+
+      </div>
     </header>
 
     <section class="stats">
@@ -26,12 +37,10 @@
         <span id="doneCount">0</span>/<span id="totalDays">31</span> completados
       </div>
 
-      <!-- Year badge (Option C) -->
+      <!-- Year badge -->
       <div class="pill yearbadge" aria-label="Year progress">
         <div class="yb-top">🏆 <span id="yearDone">0</span> días</div>
         <div class="yb-bot">✨ <span id="yearPct">0</span>% del año</div>
-
-        <!-- keep this hidden value for calculations if you want it later -->
         <span id="yearTotal" style="display:none;">365</span>
       </div>
     </section>
@@ -42,6 +51,5 @@
   <script src="app.js" defer></script>
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "251b30c1f20f45799c65195922ee0553"}'></script><!-- End Cloudflare Web Analytics -->
-
 </body>
 </html>
